@@ -1,5 +1,5 @@
 # TheMovieDB
-TestDue 18th Oct 2019 Midnight
+Due 18th Oct 2019 Midnight
 SDK Min 21
 Kotlin
 api_key=11004c5dda64d0bae607c7af2636e983
