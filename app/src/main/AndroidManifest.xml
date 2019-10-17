@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".movie_details.DetailsActivity"></activity>
+=======
+        <activity android:name=".movie_details.MovieDetails"></activity>
+>>>>>>> baca24fc6e6427952e299d978e8356a7e62c5fa3
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
