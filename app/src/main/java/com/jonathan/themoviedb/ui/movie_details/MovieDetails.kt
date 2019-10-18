@@ -9,37 +9,40 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.jonathan.themoviedb.R
-import com.jonathan.themoviedb.data.api.DetailsClient
-import com.jonathan.themoviedb.data.api.DetailsInterface
+import com.jonathan.themoviedb.data.api.Interface
 import com.jonathan.themoviedb.data.api.POSTER_BASE_URL
-import com.jonathan.themoviedb.data.repo.NetworkState
-import com.jonathan.themoviedb.data.model.MovieDetails
-import kotlinx.android.synthetic.main.activity_details.*
+import com.jonathan.themoviedb.data.api.TheMovieDBClient
+import com.jonathan.themoviedb.data.repository.NetworkState
+import com.jonathan.themoviedb.data.vo.MovieDetails
+import kotlinx.android.synthetic.main.activity_single_movie.*
 import java.text.NumberFormat
 import java.util.*
 
 
-class DetailsActivity : AppCompatActivity() {
+class MovieDetails : AppCompatActivity() {
 
-    private lateinit var viewModel: DetailsViewModel
-    private lateinit var detailsRepo: DetailsRepo
+    private lateinit var detailsViewModel: MovieDetailsViewModel
+    private lateinit var movieRepository: MovieDetailsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
+        setContentView(R.layout.activity_single_movie)
 
         val movieId: Int = intent.getIntExtra("id", 1)
 
-        val apiService: DetailsInterface = DetailsClient.getClient()
-        detailsRepo = DetailsRepo(apiService)
+        val apiService: Interface = TheMovieDBClient.getClient()
+        movieRepository = MovieDetailsRepository(apiService)
 
-        viewModel = getViewModel(movieId)
+        detailsViewModel = getViewModel(movieId)
 
-        viewModel.movieDetails.observe(this, Observer { bindUI(it) })
+        detailsViewModel.movieDetails.observe(this, Observer {
+            bindUI(it)
+        })
 
-        viewModel.networkState.observe(this, Observer {
+        detailsViewModel.networkState.observe(this, Observer {
             progress_bar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
             txt_error.visibility = if (it == NetworkState.ERROR) View.VISIBLE else View.GONE
+
         })
     }
 
@@ -58,19 +61,15 @@ class DetailsActivity : AppCompatActivity() {
         val moviePosterURL = POSTER_BASE_URL + it.posterPath
         Glide.with(this)
             .load(moviePosterURL)
-            .into(iv_movie_poster);
+            .into(iv_movie_poster)
     }
 
-    private fun getViewModel(movieId: Int): DetailsViewModel {
+    private fun getViewModel(movieId: Int): MovieDetailsViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return DetailsViewModel(
-                    detailsRepo,
-                    movieId
-                ) as T
+                return MovieDetailsViewModel(movieRepository, movieId) as T
             }
-        })[DetailsViewModel::class.java]
+        })[MovieDetailsViewModel::class.java]
     }
 }
-

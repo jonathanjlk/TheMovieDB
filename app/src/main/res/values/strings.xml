@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">TheMovieDB</string>
+    <string name="error_internet">Unable to connect! Please check your network connection.</string>
+    <string name="movie">movie</string>
+    <string name="sub_title">sub title</string>
+    <string name="movie_info">Movie Info</string>
+    <string name="release_date">Release Date:</string>
+    <string name="date_placeholder">2019</string>
+    <string name="rating">Rating:</string>
+    <string name="rating_placeholder">8</string>
+    <string name="runtime">Runtime:</string>
+    <string name="runtime_placeholder">2.3 hr</string>
+    <string name="budget">Budget:</string>
+    <string name="budget_placeholder">130,000</string>
+    <string name="revenue">Revenue:</string>
+    <string name="revenue_placeholder">130,000</string>
+    <string name="overview">Overview</string>
+    <string name="overvice_placeholder">overview .........</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="pick_from_date">Pick From Date</string>
+    <string name="pick_to_date">Pick To Date</string>
 </resources>
